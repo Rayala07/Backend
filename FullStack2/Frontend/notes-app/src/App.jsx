@@ -3,7 +3,7 @@ import "./index.css"
 
 const App = () => {
   return (
-    <div className='h-screen w-screen bg-slate-950 text-white/80'>
+    <div className='min-h-screen min-w-screen bg-slate-950 text-white/80'>
       <Notes />
     </div>
   )

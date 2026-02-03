@@ -30,4 +30,13 @@ app.get("/api/notes", async (req, res) => {
   });
 });
 
+app.delete("/api/notes/:id", async (req, res) => {
+  const id = req.params.id;
+  await notesModel.findByIdAndDelete(id);
+
+  res.status(200).json({
+    message: "Delete Success",
+  });
+});
+
 module.exports = app;

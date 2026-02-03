@@ -58,15 +58,22 @@ const Notes = () => {
     fetchNotes()
     },[])
 
+    async function handleDelete(id) {
+        const res = await axios.delete(`http://localhost:3000/api/notes/${id}`)
+        fetchNotes();
+        console.log(res)
+    }
+
   return (
     <div className='flex flex-col gap-10'>
         <NoteInput fetchNotes={fetchNotes}/>
         <div className='flex flex-col gap-4'>
         {notes.map((note) => {
             return (
-                <div key={note._id} className='border w-fit p-4'>
+                <div key={note._id} className='border w-fit p-4 flex flex-col gap-1'>
                     <h2>{note.title}</h2>
                     <h3>{note.description}</h3>
+                    <button className='bg-slate-300 px-1.5 py-[0.10rem] text-black/50 rounded-sm cursor-pointer self-start' onClick={() => (handleDelete(note._id))}>Delete</button>
                 </div>
             )
         })}
