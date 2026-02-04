@@ -64,7 +64,35 @@ const Notes = () => {
         console.log(res)
     }
 
+    const [modalState, setModalState] = useState(false);
+    const [selectedNote, setSelectedNote] = useState(null)
+
+    const [editTitle, setEditTitle] = useState("");
+    const [editDesc, setEditDesc] = useState("")
+
+    function handleEdit(id) {
+            const note = notes.find((note) => note._id === id)
+            setSelectedNote(note)
+            setEditTitle(note.title)
+            setEditDesc(note.description)
+            setModalState((prev) => prev = !prev)
+    }
+
+    async function handleSave(e) {
+        e.preventDefault()
+        
+        await axios.patch(`http://localhost:3000/api/notes/${selectedNote._id}`,{
+            title: editTitle,
+            description: editDesc
+        })
+
+        fetchNotes()
+        setModalState(prev => prev = !prev)
+        setSelectedNote(null)
+    }
+
   return (
+    <>
     <div className='flex flex-col gap-10'>
         <NoteInput fetchNotes={fetchNotes}/>
         <div className='flex flex-col gap-4'>
@@ -73,12 +101,39 @@ const Notes = () => {
                 <div key={note._id} className='border w-fit p-4 flex flex-col gap-1'>
                     <h2>{note.title}</h2>
                     <h3>{note.description}</h3>
-                    <button className='bg-slate-300 px-1.5 py-[0.10rem] text-black/50 rounded-sm cursor-pointer self-start' onClick={() => (handleDelete(note._id))}>Delete</button>
+                    <div className='flex gap-4'>
+                        <button className='bg-slate-300 px-1.5 py-[0.10rem] text-black/50 rounded-sm cursor-pointer self-start' onClick={() => (handleDelete(note._id))}>Delete</button>
+                        <button className='bg-slate-300 px-1.5 py-[0.10rem] text-black/50 rounded-sm cursor-pointer self-start' onClick={() => (handleEdit(note._id))}>Edit</button>
+                    </div>
                 </div>
             )
         })}
         </div>
     </div>
+    {modalState && (
+        <div id='modal'>
+            <h3>Edit Note</h3>
+            <form onSubmit={handleSave}>
+                <input 
+                    type="text" 
+                    value={editTitle}
+                    onChange={(e) => (setEditTitle(e.target.value))}
+                />
+                <input 
+                    type="text"
+                    value={editDesc}
+                    onChange={(e) => (setEditDesc(e.target.value))} 
+                />
+
+                <button>Update</button>
+                <button onClick={(e) => {
+                    e.preventDefault()
+                    setModalState(false)
+                }}>Cancel</button>
+            </form>
+        </div>
+    )}
+    </>
   )
 }
 
