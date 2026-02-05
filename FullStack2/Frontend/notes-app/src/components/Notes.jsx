@@ -6,7 +6,7 @@ const NoteInput = ({fetchNotes}) => {
     const [desc, setDesc] = useState("")
 
     async function postAndFetchData() {
-        await axios.post("http://localhost:3000/api/notes", {
+        await axios.post("https://notes-pjwh.onrender.com/api/notes", {
             title: title,
             description: desc
         })
@@ -55,7 +55,7 @@ const Notes = () => {
     const [notes, setNotes] = useState([])
 
     const fetchNotes = async() => {
-        const {data} = await axios.get("http://localhost:3000/api/notes")
+        const {data} = await axios.get("https://notes-pjwh.onrender.com/api/notes")
         setNotes(data.getNotes)
     }
 
@@ -64,7 +64,7 @@ const Notes = () => {
     },[])
 
     async function handleDelete(id) {
-        const res = await axios.delete(`http://localhost:3000/api/notes/${id}`)
+        const res = await axios.delete(`https://notes-pjwh.onrender.com/api/notes/${id}`)
         fetchNotes();
         console.log(res)
     }
@@ -86,7 +86,7 @@ const Notes = () => {
     async function handleSave(e) {
         e.preventDefault()
         
-        await axios.patch(`http://localhost:3000/api/notes/${selectedNote._id}`,{
+        await axios.patch(`https://notes-pjwh.onrender.com/api/notes/${selectedNote._id}`,{
             title: editTitle,
             description: editDesc
         })
