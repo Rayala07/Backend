@@ -80,7 +80,6 @@ authRouter.post("/login", async (req, res) => {
 
 authRouter.post("/logout", (req, res) => {
   res.clearCookie("jwt_token");
-
   res.status(200).json({
     message: "Logout Success",
   });
