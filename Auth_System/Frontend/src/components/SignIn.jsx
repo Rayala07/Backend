@@ -39,7 +39,7 @@ const Inputs = () => {
       setUserIdentifier("")
       setPassword("")
       console.log("Submitted")
-      navigate("/")    
+      navigate("/home")    
     }
   }
 

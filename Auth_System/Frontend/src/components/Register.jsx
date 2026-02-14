@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
 
 const Register = () => {
@@ -17,6 +17,8 @@ const InputFields = () => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
 
+    const navigate = useNavigate();
+
     async function postUserData() {
         await axios.post("http://localhost:3000/api/auth/register", {
             username: username,
@@ -28,11 +30,15 @@ const InputFields = () => {
     const submitRegisterForm = (e) => {
         e.preventDefault()
 
-        postUserData()
-        setEmail("")
-        setUsername("")
-        setPassword("")
-        console.log("Submitted")
+        if(email === "" || username === "" || password === "") {
+            return alert("Please fill all the fields")
+        } else {
+            postUserData()
+            setEmail("")
+            setUsername("")
+            setPassword("")
+            navigate("/signin")
+        }
     }
     
     return (
