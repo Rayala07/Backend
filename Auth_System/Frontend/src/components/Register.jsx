@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
+import { Link } from "react-router-dom"
 import axios from "axios"
 
 const Register = () => {
   return (
     <div className='flex flex-col gap-4 justify-between items-center bg-[#48484850] backdrop-blur-sm px-6 py-2 h-96 rounded-lg'>
-      <p className='text-[1.8rem] font-semibold'>Sign Up Now</p>
+      <p className='text-[1.8rem] font-semibold'>Signup Now</p>
       <InputFields />
-      <p>Have an account ? Sign In.</p>
+      <p>Have an account ? <Link to="/signin" className='text-blue-800'>Sign In.</Link></p>
     </div>
   )
 }
@@ -36,9 +37,9 @@ const InputFields = () => {
     
     return (
         <form className='flex flex-col gap-5 items-center' onSubmit={submitRegisterForm}>
-            <div className='flex flex-col justify-items-start gap-4'>
+            <div className='flex flex-col justify-items-start gap-4 w-[16rem]'>
                 <input 
-                className='bg-[#212121da] text-white/80 outline-none rounded-sm p-[0.35rem] text-[0.90rem] w-[16rem]'
+                className='bg-[#212121da] text-white/80 outline-none rounded-sm p-[0.35rem] text-[0.90rem]'
                 type="email" 
                 value={email}
                 onChange={(e) => (setEmail(e.target.value))}
