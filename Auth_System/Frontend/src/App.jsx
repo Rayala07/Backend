@@ -7,7 +7,7 @@ import Home from "./components/Home"
 const App = () => {
   return (
     <BrowserRouter>
-        <div className="bg-[url(./public/web_bg.jpeg)] h-screen bg-no-repeat bg-cover bg-center flex flex-col justify-center items-center">
+        <div className="bg-[url(/web_bg.jpeg)] h-screen bg-no-repeat bg-cover bg-center flex flex-col justify-center items-center">
           <Routes>
             <Route path="/" element={<Register />}/>
             <Route path="/signin" element={<SignIn />} />
